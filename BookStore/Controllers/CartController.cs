@@ -10,7 +10,6 @@ namespace BookStore.Controllers
 
     public class CartController : Controller
     {
-
         private readonly BookStoreContext _context;
         private readonly Cart _cart;
 
