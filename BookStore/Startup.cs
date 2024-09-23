@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using BookStore.Data;
+using BookStore.Models;
 
 namespace BookStore
 {
@@ -29,6 +30,18 @@ namespace BookStore
 
             services.AddDbContext<BookStoreContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("BookStoreContext")));
+
+            services.AddScoped<Cart>(sp => Cart.GetCart(sp));
+
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+                //options.IdleTimeout = TimeSpan.FromSeconds(10);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,13 +62,17 @@ namespace BookStore
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Store}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
