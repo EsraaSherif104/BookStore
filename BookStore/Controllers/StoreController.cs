@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Controllers
 {
-   // [AllowAnonymous]
+    [AllowAnonymous]
 
     public class StoreController : Controller
     {
@@ -18,6 +18,7 @@ namespace BookStore.Controllers
             _context = context;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index(string searchString, string minPrice, string maxPrice)
         {
             var books = _context.Books.Select(b => b);

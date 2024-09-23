@@ -35,7 +35,7 @@ namespace BookStore
             services.AddDbContext<BookStoreContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("BookStoreContext")));
 
-            services.AddDefaultIdentity<DefaultUser>().AddEntityFrameworkStores<BookStoreContext>();
+            services.AddDefaultIdentity<DefaultUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<BookStoreContext>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
