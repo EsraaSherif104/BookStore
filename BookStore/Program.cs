@@ -1,3 +1,4 @@
+using BookStore.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +24,7 @@ namespace BookStore
                 try
                 {
                     // Initialize Roles and Users. This one will create a user with an Admin-role aswell as a separate User-role. See UserRoleInitializer.cs in Models
-                    //UserRoleInitializer.InitializeAsync(services).Wait();
+                    UserRoleInitializer.InitializeAsync(services).Wait();
                     // Seed book data
                     //SeedData.Initialize(services);
                 }
